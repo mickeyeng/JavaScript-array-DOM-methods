@@ -16,6 +16,7 @@ let data = [];
 addUser.addEventListener('click', getRandomUser);
 double.addEventListener('click', doubleMoney);
 sort.addEventListener('click', sortByRichest);
+showMillionaires.addEventListener('click', findMillionaires);
 
 // fetch random user and add mony
 async function getRandomUser() {
@@ -69,6 +70,12 @@ function doubleMoney() {
 function sortByRichest() {
   // Richest first
   data.sort((a, b) => b.money - a.money);
+
+  updateDOM();
+}
+
+function findMillionaires() {
+  data = data.filter(person => person.money > 1000000);
 
   updateDOM();
 }
