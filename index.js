@@ -18,6 +18,8 @@ let data = [];
 // }
 
 getRandomUser();
+getRandomUser();
+getRandomUser();
 
 // fetch random user and add mony
 async function getRandomUser() {
@@ -31,18 +33,33 @@ async function getRandomUser() {
   };
 
   console.log(newUser);
+  addData(newUser);
 }
 
 function addData(obj) {
   data.push(obj);
+  updateDOM();
 }
 
-addUser.addEventListener('click', () => {
-  // console.log('clicked');
-  // fetch(`https://randomuser.me/api/`)
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     console.log(data.results[0].name);
-  //   });
-  // main.innerHTML = `<p>test</p>`;
-});
+// Update DOM
+function updateDOM(providedData = data) {
+  // clear the main div
+  main.innerHTML = '<h2><strong>Person</strong>Wealth</h2>';
+
+  providedData.forEach(person => {
+    const element = document.createElement('div');
+    element.classList.add('person');
+    element.innerHTML = `<strong>${person.name}</strong> ${formatMoney(
+      person.money
+    )}`;
+    main.appendChild(element);
+  });
+}
+
+addUser.addEventListener('click', getRandomUser());
+double.addEventListener('click', () => {});
+
+// Format number as money
+function formatMoney(number) {
+  return '£' + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // 12,345.67
+}
