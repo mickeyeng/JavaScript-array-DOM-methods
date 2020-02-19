@@ -15,6 +15,7 @@ let data = [];
 
 addUser.addEventListener('click', getRandomUser);
 double.addEventListener('click', doubleMoney);
+sort.addEventListener('click', sortByRichest);
 
 // fetch random user and add mony
 async function getRandomUser() {
@@ -60,6 +61,14 @@ function doubleMoney() {
   data = data.map(person => {
     return { ...person, money: person.money * 2 };
   });
+
+  updateDOM();
+}
+
+// Sort users by wealth
+function sortByRichest() {
+  // Richest first
+  data.sort((a, b) => b.money - a.money);
 
   updateDOM();
 }
