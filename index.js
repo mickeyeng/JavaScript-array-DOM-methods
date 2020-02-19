@@ -9,17 +9,12 @@ const main = document.querySelector('main');
 
 let data = [];
 
-// function getRandomUser() {
-//   fetch(`https://randomuser.me/api/`)
-//     .then(res => res.json())
-//     .then(data => {
-//       console.log(data.results[0].name);
-//     });
-// }
+// getRandomUser();
+// getRandomUser();
+// getRandomUser();
 
-getRandomUser();
-getRandomUser();
-getRandomUser();
+addUser.addEventListener('click', getRandomUser);
+double.addEventListener('click', doubleMoney);
 
 // fetch random user and add mony
 async function getRandomUser() {
@@ -31,11 +26,10 @@ async function getRandomUser() {
     name: `${user.name.first} ${user.name.last}`,
     money: Math.floor(Math.random() * 10000000)
   };
-
-  console.log(newUser);
   addData(newUser);
 }
 
+// Add new person object to data array
 function addData(obj) {
   data.push(obj);
   updateDOM();
@@ -56,10 +50,16 @@ function updateDOM(providedData = data) {
   });
 }
 
-addUser.addEventListener('click', getRandomUser());
-double.addEventListener('click', () => {});
-
 // Format number as money
 function formatMoney(number) {
   return '£' + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // 12,345.67
+}
+
+// Double everyone's money
+function doubleMoney() {
+  data = data.map(person => {
+    return { ...person, money: person.money * 2 };
+  });
+
+  updateDOM();
 }
