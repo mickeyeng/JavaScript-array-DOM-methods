@@ -17,6 +17,7 @@ addUser.addEventListener('click', getRandomUser);
 double.addEventListener('click', doubleMoney);
 sort.addEventListener('click', sortByRichest);
 showMillionaires.addEventListener('click', findMillionaires);
+wealth.addEventListener('click', calculateWealth);
 
 // fetch random user and add mony
 async function getRandomUser() {
@@ -76,6 +77,17 @@ function sortByRichest() {
 
 function findMillionaires() {
   data = data.filter(person => person.money > 1000000);
-
   updateDOM();
+}
+
+function calculateWealth() {
+  const wealth = data.reduce(
+    (accumulator, user) => (accumulator += user.money),
+    0
+  );
+  const wealthElement = document.createElement('div');
+  wealthElement.innerHTML = `<h3>total Wealth: <strong>${formatMoney(
+    wealth
+  )}</strong></h3>`;
+  main.appendChild(wealthElement);
 }
